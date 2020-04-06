@@ -10,6 +10,64 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+struct Node;
+
+struct Edge 
+{
+	Node* target;
+	float cost;
+};
+
+struct Node 
+{
+	Vector2 position;
+
+	float gScore;
+	float hScore;
+	float fScore;
+	Node* previous;
+
+	std::vector<Edge> connections;
+};
+
+int heuristic(Node * currentNode, Node * goal)
+{
+	return abs(currentNode->position.x - goal->position.x) + abs(currentNode->position.y - goal->position.y);
+}
+
+std::vector<Node*> aStarSearch(Node* startNode, Node* endNode)
+{
+	//Validate the input
+	if (startNode == nullptr || endNode == nullptr) {
+		return std::vector<Node*>();
+	}
+
+	if (startNode == endNode) {
+		std::vector<Node*> singleNodePath;
+		singleNodePath.push_back(startNode);
+		return singleNodePath;
+	}
+
+	//Initialize the starting node
+	startNode->gScore = 0;
+	startNode->previous = nullptr;
+
+	//Create our temporary lists for storing nodes
+	std::vector<Node*> openList;
+	std::vector<Node*> closedList;
+
+	//Add the starting node to openList
+	openList.push_back(startNode);
+
+	while (!openList.empty())
+	{
+
+	}
+}
 
 int main()
 {
